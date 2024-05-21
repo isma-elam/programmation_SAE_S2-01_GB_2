@@ -41,4 +41,30 @@ public class Panier {
     public List<Article> getArticles() {
         return this.articles;
     }
+
+    public Article getArticle(int index) {
+        return this.articles.get(index);
+    }
+
+    public void vider() {
+        this.articles.clear();
+    }
+
+    public boolean contient(Fromage fromage) {
+        for (Article article : this.articles) {
+            if (article.getFromage().equals(fromage)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Article getArticle(Fromage fromage) {
+        for (Article article : this.articles) {
+            if (article.getFromage().equals(fromage)) {
+                return article;
+            }
+        }
+        return null;
+    }
 }
