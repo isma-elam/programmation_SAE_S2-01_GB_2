@@ -106,4 +106,14 @@ public class Fromages {
 		}
 		return null;
 	}
+
+	public List<Fromage> chercherFromages(String recherche) {
+		List<Fromage> fromagesTrouves = new LinkedList<Fromage>();
+		for (Fromage f : this.fromages) {
+			if (f.getDésignation().toLowerCase().contains(recherche.toLowerCase())) {
+				fromagesTrouves.add(f);
+			}
+		}
+		return fromagesTrouves;
+	}
 }
