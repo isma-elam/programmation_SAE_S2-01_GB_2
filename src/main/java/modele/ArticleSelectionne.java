@@ -10,7 +10,7 @@ public class ArticleSelectionne {
         this.quantite = quantite;
     }
 
-    public double getPrixTTC() {
+    public double total() {
         return this.article.getPrixTTC() * this.quantite;
     }
 
