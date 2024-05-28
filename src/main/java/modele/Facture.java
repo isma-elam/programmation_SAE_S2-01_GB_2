@@ -14,8 +14,13 @@ public class Facture {
     private String tel;
     private String mail;
     private List<LigneFacture> lignes = new LinkedList<LigneFacture>();
+    private String totalSansLivraison;
+    private String fraisTransport;
+    private String totalAvecLivraison;
+    private String typePaiment;
+    private String livreur;
 
-    public Facture (String nom, String prenom, String adresse1, String adresse2, String codePostal, String ville, String tel, String mail, Panier panier){
+    public Facture (String nom, String prenom, String adresse1, String adresse2, String codePostal, String ville, String tel, String mail, String fraisTransport, String typePaiment, String livreur, Panier panier){
         this.nom = nom;
         this.prenom = prenom;
         this.adresse1 = adresse1;
@@ -26,15 +31,20 @@ public class Facture {
         this.mail = mail;
         this.lignes = new ArrayList<>();
 
-
+        double totalSLTmp = 0;
         for (ArticleSelectionne a : panier.getArticles()) {
             this.lignes.add(new LigneFacture(a));
+            totalSLTmp += a.total();
         }
+
+        this.totalSansLivraison = String.valueOf(totalSLTmp);
+        this.fraisTransport = fraisTransport;
+        this.totalAvecLivraison = String.valueOf(totalSLTmp + Integer.parseInt(fraisTransport));
+
+        this.typePaiment = typePaiment;
+        this.livreur = livreur;
     }
 
-    public void ajouterLigne(LigneFacture ligne) {
-        this.lignes.add(ligne);
-    }
     public String getNom() {
         return nom;
     }
@@ -61,5 +71,20 @@ public class Facture {
     }
     public List<LigneFacture> getLignes() {
         return lignes;
+    }
+    public String getTotalSansLivraison(){
+        return totalSansLivraison;
+    }
+    public String getFraisTransport() {
+        return fraisTransport;
+    }
+    public String getTotalAvecLivraison(){
+        return totalAvecLivraison;
+    }
+    public String getTypePaiment() {
+        return typePaiment;
+    }
+    public String getLivreur() {
+        return livreur;
     }
 }
