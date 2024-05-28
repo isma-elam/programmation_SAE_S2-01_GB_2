@@ -61,4 +61,12 @@ public class ArticleSelectionne {
         }
         this.quantite += quantite;
     }
+
+    /**
+     * Retourne l'article selectionné
+     * @return Article selectionné
+     */
+    public Article getArticle() {
+        return this.article;
+    }
 }
