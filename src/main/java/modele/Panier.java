@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Panier {
 
-    private List<ArticleSelectionne> articles;
+    private final List<ArticleSelectionne> articles;
 
     public Panier() {
-        this.articles = new LinkedList<ArticleSelectionne>();
+        this.articles = new LinkedList<>();
     }
 
     /**
@@ -45,9 +45,9 @@ public class Panier {
      * @return Représentation textuelle du panier
      */
     public String toString() {
-        StringBuffer enForme = new StringBuffer();
+        StringBuilder enForme = new StringBuilder();
         for (ArticleSelectionne article : this.articles) {
-            enForme.append(article.toString() + '\n');
+            enForme.append(article.toString()).append('\n');
         }
         return enForme.toString();
     }
