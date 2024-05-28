@@ -8,6 +8,7 @@ public class ArticleSelectionne {
     public ArticleSelectionne(Article article, int quantite) {
         this.article = article;
         this.quantite = quantite;
+
     }
 
     public double getPrixTTC() {
