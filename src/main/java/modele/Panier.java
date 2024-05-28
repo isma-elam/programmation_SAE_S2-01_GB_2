@@ -4,13 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Panier {
+
     private List<ArticleSelectionne> articles;
 
     public Panier() {
-
+        this.articles = new LinkedList<ArticleSelectionne>();
     }
 
     public void addArticle(Article article, int qte) {
+        if (this.contient(article.getFromage())) {
+            this.getArticle(article.getFromage()).ajouter(qte);
+        }
         this.articles.add(new ArticleSelectionne(article, qte));
     }
 
@@ -48,13 +52,10 @@ public class Panier {
 
     public void vider() {
         this.articles.clear();
-        for (ArticleSelectionne article : this.articles) {
-            article.getFromage().resetStock();
-        }
     }
 
     public boolean contient(Fromage fromage) {
-        for (Article article : this.articles) {
+        for (ArticleSelectionne article : this.articles) {
             if (article.getFromage().equals(fromage)) {
                 return true;
             }
@@ -62,7 +63,7 @@ public class Panier {
         return false;
     }
 
-    public Article getArticle(Fromage fromage) {
+    public ArticleSelectionne getArticle(Fromage fromage) {
         for (ArticleSelectionne article : this.articles) {
             if (article.getFromage().equals(fromage)) {
                 return article;
