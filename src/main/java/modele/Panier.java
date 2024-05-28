@@ -18,10 +18,27 @@ public class Panier {
      * @param qte Quantité à ajouter
      */
     public void addArticle(Article article, int qte) {
-        if (this.contient(article.getFromage())) {
-            this.getArticle(article.getFromage()).ajouter(qte);
+
+        if (qte <= 0) {
+            throw new IllegalArgumentException("Quantité invalide");
         }
-        this.articles.add(new ArticleSelectionne(article, qte));
+        // qte positive
+        if (this.contient(article.getFromage())) {
+            // si l'article est déjà présent
+            this.getArticle(article.getFromage()).ajouter(qte);
+            // on ajoute la quantité (vérification de quantité en stock dans la méthode ajouter)
+        } else {
+
+            if (article.getQuantiteEnStock() < qte) {
+                // si la quantité en stock est insuffisante
+                throw new IllegalArgumentException("Quantité en stock insuffisante");
+                // on lève une exception
+            } else {
+
+                this.articles.add(new ArticleSelectionne(article, qte));
+                // sinon on ajoute l'article au panier
+            }
+        }
     }
 
     /**
@@ -59,7 +76,7 @@ public class Panier {
     public double prixTotal() {
         double prixTotal = 0;
         for (ArticleSelectionne article : this.articles) {
-            prixTotal += article.getPrixTTC();
+            prixTotal += article.total();
         }
         return prixTotal;
     }
