@@ -6,10 +6,12 @@ import java.util.List;
 public class Recherche {
     private String key;
     private List<Fromage> fromages;
+    private List<Filtres> filtres;
 
     public Recherche(String key, List<Fromage> fromages, List<Filtres>) {
         this.key = key;
         this.fromages = fromages;
+        this.filtres = filtres;
     }
 
     public List<Fromage> getResultat (){
@@ -18,5 +20,7 @@ public class Recherche {
         for (Fromage fromage : fromages) {
             if ()
         }
+
+        return resultat;
     }
 }
