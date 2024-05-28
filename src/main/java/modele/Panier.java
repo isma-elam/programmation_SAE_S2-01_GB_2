@@ -4,14 +4,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Panier {
-    private List<Article> articles;
+    private List<ArticleSelectionne> articles;
 
     public Panier() {
-        this.articles = new LinkedList<Article>();
+
     }
 
-    public void addArticle(Article article) {
-        this.articles.add(article);
+    public void addArticle(Article article, int qte) {
+        this.articles.add(new ArticleSelectionne(article, qte));
     }
 
     public void removeArticle(Article article) {
@@ -20,7 +20,7 @@ public class Panier {
 
     public String toString() {
         StringBuffer enForme = new StringBuffer();
-        for (Article article : this.articles) {
+        for (ArticleSelectionne article : this.articles) {
             enForme.append(article.toString() + '\n');
         }
         return enForme.toString();
@@ -28,7 +28,7 @@ public class Panier {
 
     public double prixTotal() {
         double prixTotal = 0;
-        for (Article article : this.articles) {
+        for (ArticleSelectionne article : this.articles) {
             prixTotal += article.getPrixTTC();
         }
         return prixTotal;
@@ -38,16 +38,19 @@ public class Panier {
         return this.articles.size();
     }
 
-    public List<Article> getArticles() {
+    public List<ArticleSelectionne> getArticles() {
         return this.articles;
     }
 
-    public Article getArticle(int index) {
+    public ArticleSelectionne getArticle(int index) {
         return this.articles.get(index);
     }
 
     public void vider() {
         this.articles.clear();
+        for (ArticleSelectionne article : this.articles) {
+            article.getFromage().resetStock();
+        }
     }
 
     public boolean contient(Fromage fromage) {
@@ -60,7 +63,7 @@ public class Panier {
     }
 
     public Article getArticle(Fromage fromage) {
-        for (Article article : this.articles) {
+        for (ArticleSelectionne article : this.articles) {
             if (article.getFromage().equals(fromage)) {
                 return article;
             }
