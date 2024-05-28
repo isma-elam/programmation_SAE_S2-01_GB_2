@@ -3,15 +3,15 @@ package modele;
 public class Article {
 
 	private Fromage fromage;
-	private String clé;
+	private String cle;
 	private float prixTTC;
-	private int quantitéEnStock;
+	private int quantiteEnStock;
 
-	public Article(Fromage fromage, String clé, float prixTTC) {
+	public Article(Fromage fromage, String cle, float prixTTC) {
 		this.fromage = fromage;
-		this.clé = clé;
+		this.cle = cle;
 		this.prixTTC = prixTTC;
-		this.quantitéEnStock = 0;
+		this.quantiteEnStock = 0;
 	}
 
 	public Fromage getFromage() {
@@ -22,39 +22,39 @@ public class Article {
 		return this.prixTTC;
 	}
 
-	public int getQuantitéEnStock() {
-		return this.quantitéEnStock;
+	public int getQuantiteEnStock() {
+		return this.quantiteEnStock;
 	}
 
-	public String getClé() {
-		return this.clé;
+	public String getCle() {
+		return this.cle;
 	}
 
-	public void setQuantitéEnStock(int quantitéEnStock) {
-		this.quantitéEnStock = quantitéEnStock;
+	public void setQuantiteEnStock(int quantiteEnStock) {
+		this.quantiteEnStock = quantiteEnStock;
 	}
 
 	@Override
 	public String toString() {
-		if (this.clé.equals("")) {
-			return this.fromage.getDésignation() + ", Prix TTC : "
+		if (this.cle.equals("")) {
+			return this.fromage.getDesignation() + ", Prix TTC : "
 			        + this.getPrixTTC() + " €";
 		} else {
-			return this.fromage.getDésignation() + ", " + this.clé
+			return this.fromage.getDesignation() + ", " + this.cle
 			        + ", Prix TTC : " + this.getPrixTTC() + " €";
 		}
 	}
 
 	public String toStringAvecStock() {
-		return this.toString() + ", Quantité en stock : "
-		        + this.quantitéEnStock;
+		return this.toString() + ", Quantite en stock : "
+		        + this.quantiteEnStock;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		Article other = (Article) obj;
 		return (this.fromage.equals(other.fromage)
-		        && this.clé.equals(other.clé));
+		        && this.cle.equals(other.cle));
 	}
 
 }

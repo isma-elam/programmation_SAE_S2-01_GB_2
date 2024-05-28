@@ -56,27 +56,27 @@ public class Fromages {
 		return this.fromages;
 	}
 
-	public Fromage getFromage(String désignation) {
+	public Fromage getFromage(String designation) {
 		for (Fromage f : this.fromages) {
-			if (f.getDésignation().equals(désignation)) {
+			if (f.getDesignation().equals(designation)) {
 				return f;
 			}
 		}
 		return null;
 	}
 
-	public void regénérationDuStock() {
+	public void regenerationDuStock() {
 		for (Fromage f : this.fromages) {
 			if (f.nombreArticles() > 0) {
 				for (Article article : f.getArticles()) {
-					article.setQuantitéEnStock(
+					article.setQuantiteEnStock(
 					        (int) Math.round(Math.random() * 100));
 				}
 			}
 		}
 	}
 
-	public String vérificationSaisie() {
+	public String verificationSaisie() {
 		StringBuffer enForme = new StringBuffer();
 		for (Fromage f : this.fromages) {
 			if (f.nombreArticles() == 0) {
@@ -94,26 +94,16 @@ public class Fromages {
 		return enForme.toString();
 	}
 
-	public Article getArticle(String désignation, String clé) {
+	public Article getArticle(String designation, String cle) {
 		for (Fromage f : this.fromages) {
-			if (f.getDésignation().equals(désignation)) {
+			if (f.getDesignation().equals(designation)) {
 				for (Article article : f.getArticles()) {
-					if (article.getClé().equals(clé)) {
+					if (article.getCle().equals(cle)) {
 						return article;
 					}
 				}
 			}
 		}
 		return null;
-	}
-
-	public List<Fromage> chercherFromages(String recherche) {
-		List<Fromage> fromagesTrouves = new LinkedList<Fromage>();
-		for (Fromage f : this.fromages) {
-			if (f.getDésignation().toLowerCase().contains(recherche.toLowerCase())) {
-				fromagesTrouves.add(f);
-			}
-		}
-		return fromagesTrouves;
 	}
 }

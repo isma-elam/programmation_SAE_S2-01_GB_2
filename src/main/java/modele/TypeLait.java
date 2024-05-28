@@ -13,9 +13,9 @@ public enum TypeLait {
 		return this.typeDeLait;
 	}
 
-	public static TypeLait getTypeLait(String dénomination) {
+	public static TypeLait getTypeLait(String denomination) {
 		for (TypeLait t : TypeLait.values()) {
-			if (t.getTypeDeLait().equals(dénomination)) {
+			if (t.getTypeDeLait().equals(denomination)) {
 				return t;
 			}
 		}

@@ -14,7 +14,7 @@ public class TestFiltreTypeDeFromage {
 
 	@BeforeClass
 	public static void setUp() {
-		mesArticles = GenerationFromages.générationBaseFromages();
+		mesArticles = GenerationFromages.generationBaseFromages();
 	}
 
 	@Test
@@ -23,7 +23,7 @@ public class TestFiltreTypeDeFromage {
 		        .fromagesAuLaitDe(TypeLait.BREBIS);
 		assertEquals(16, fromagesBrebis.size());
 		if (!this.verify(fromagesBrebis, TypeLait.BREBIS)) {
-			fail("un fromage du mauvais type trouvé dans le filtre !");
+			fail("un fromage du mauvais type trouve dans le filtre !");
 		}
 	}
 
@@ -33,7 +33,7 @@ public class TestFiltreTypeDeFromage {
 		        .fromagesAuLaitDe(TypeLait.CHEVRE);
 		assertEquals(22, fromagesChèvre.size());
 		if (!this.verify(fromagesChèvre, TypeLait.CHEVRE)) {
-			fail("un fromage du mauvais type trouvé dans le filtre !");
+			fail("un fromage du mauvais type trouve dans le filtre !");
 		}
 	}
 
@@ -43,7 +43,7 @@ public class TestFiltreTypeDeFromage {
 		        .fromagesAuLaitDe(TypeLait.VACHE);
 		assertEquals(59, fromagesVache.size());
 		if (!this.verify(fromagesVache, TypeLait.VACHE)) {
-			fail("un fromage du mauvais type trouvé dans le filtre !");
+			fail("un fromage du mauvais type trouve dans le filtre !");
 		}
 	}
 

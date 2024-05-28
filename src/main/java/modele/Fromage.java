@@ -5,19 +5,19 @@ import java.util.List;
 
 public class Fromage implements Comparable<Fromage> {
 
-	private String désignation;
+	private String designation;
 	private String nomImage;
 	private String description;
 	private TypeLait typeFromage;
 	private List<Article> articles;
 
-	public Fromage(String désignation) {
-		this.désignation = désignation;
+	public Fromage(String designation) {
+		this.designation = designation;
 		this.articles = new LinkedList<Article>();
 	}
 
-	public String getDésignation() {
-		return this.désignation;
+	public String getDesignation() {
+		return this.designation;
 	}
 
 	public String getNomImage() {
@@ -27,7 +27,7 @@ public class Fromage implements Comparable<Fromage> {
 	public String getDescription() {
 		assert !(this.description == null);
 		if (this.description == null) {
-			return "Pas de description de ce fromage pour le moment. Nous en sommes désolés";
+			return "Pas de description de ce fromage pour le moment. Nous en sommes desoles";
 		}
 		return this.description;
 	}
@@ -50,12 +50,12 @@ public class Fromage implements Comparable<Fromage> {
 
 	@Override
 	public String toString() {
-		return this.getDésignation() + ", Fromage au lait de "
+		return this.getDesignation() + ", Fromage au lait de "
 		        + this.typeFromage.getTypeDeLait();
 	}
 
-	public void addArticle(String clé, float prixTTC) {
-		this.articles.add(new Article(this, clé, prixTTC));
+	public void addArticle(String cle, float prixTTC) {
+		this.articles.add(new Article(this, cle, prixTTC));
 	}
 
 	public int nombreArticles() {
@@ -68,13 +68,13 @@ public class Fromage implements Comparable<Fromage> {
 
 	@Override
 	public int compareTo(Fromage f) {
-		return this.désignation.compareTo(f.désignation);
+		return this.designation.compareTo(f.designation);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		Fromage other = (Fromage) obj;
-		return this.désignation.equals(other.désignation);
+		return this.designation.equals(other.designation);
 	}
 
 }

@@ -2,8 +2,8 @@ package modele;
 
 public class FromageALaCoupe extends Fromage {
 
-	public FromageALaCoupe(String désignation) {
-		super(désignation);
+	public FromageALaCoupe(String designation) {
+		super(designation);
 	}
 
 	@Override
