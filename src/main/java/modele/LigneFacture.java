@@ -11,12 +11,12 @@ public class LigneFacture{
     private int quantite;
     private double total;
 
-    public LigneFacture(ArticleSelectionne a, int quantite, double total) {
-        this.fromage = a.get.getFromage();
-        this.cle = a.getCle();
-        this.prixUnitaire = a.getPrixTTC();
-        this.quantite = quantite;
-        this.total = total;
+    public LigneFacture(ArticleSelectionne a) {
+        this.fromage = a.getArticle().getFromage();
+        this.cle = a.getArticle().getCle();
+        this.prixUnitaire = a.getArticle().getPrixTTC();
+        this.quantite = a.getQuantite();
+        this.total = a.total();
     }
 
     public Fromage getFromage() {

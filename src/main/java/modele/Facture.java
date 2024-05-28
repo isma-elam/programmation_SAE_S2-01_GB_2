@@ -15,7 +15,7 @@ public class Facture {
     private String mail;
     private List<LigneFacture> lignes = new LinkedList<LigneFacture>();
 
-    public Facture (String nom, String prenom, String adresse1, String adresse2, String codePostal, String ville, String tel, String mail Panier panier){
+    public Facture (String nom, String prenom, String adresse1, String adresse2, String codePostal, String ville, String tel, String mail, Panier panier){
         this.nom = nom;
         this.prenom = prenom;
         this.adresse1 = adresse1;
@@ -27,8 +27,8 @@ public class Facture {
         this.lignes = new ArrayList<>();
 
 
-        for (List<ArticleSelectionne> panier.getArticles() : ArticleSelectionne) {
-            a
+        for (ArticleSelectionne a : panier.getArticles()) {
+            this.lignes.add(new LigneFacture(a));
         }
     }
 
