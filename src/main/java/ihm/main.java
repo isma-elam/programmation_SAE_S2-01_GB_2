@@ -112,7 +112,7 @@ public class main extends JFrame {
     private JPanel createCheesePanel(Fromage fromage) {
         JPanel panel = new JPanel(new BorderLayout());
 
-        JLabel lblImage = new JLabel(new ImageIcon(fromage.getNomImagePath40())); // Replace with actual image path
+        JLabel lblImage = new JLabel(new ImageIcon(fromage.getNomImagePath40()));
         panel.add(lblImage, BorderLayout.WEST);
 
         JPanel infoPanel = new JPanel(new GridLayout(2, 1));
