@@ -58,7 +58,7 @@ public class Facture {
         return adresse2;
     }
     public String getCodePostal() {
-        return this.codePostal
+        return this.codePostal;
     }
     public String getVille() {
         return ville;
