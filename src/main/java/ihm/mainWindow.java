@@ -3,7 +3,6 @@ package ihm;
 import modele.Fromage;
 import modele.Fromages;
 import modele.GenerationFromages;
-import modele.Recherche;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -22,7 +21,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class main extends JFrame {
+public class mainWindow extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -37,7 +36,7 @@ public class main extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    main frame = new main();
+                    mainWindow frame = new mainWindow();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -49,7 +48,7 @@ public class main extends JFrame {
     /**
      * Create the frame.
      */
-    public main() {
+    public mainWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 710);
         contentPane = new JPanel();

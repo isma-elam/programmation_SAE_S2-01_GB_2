@@ -1,7 +1,5 @@
 package modele;
 
-import ihm.main;
-
 import java.util.LinkedList;
 import java.util.List;
 
