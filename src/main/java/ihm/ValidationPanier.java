@@ -1,5 +1,10 @@
 package ihm;
 
+import modele.Article;
+import modele.ArticleSelectionne;
+import modele.Fromage;
+import modele.Panier;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -23,7 +28,7 @@ public class ValidationPanier extends JFrame {
     private JTextField emailField;
     private JComboBox<String> paymentComboBox;
     private JTextArea orderSummaryArea;
-    private List<Fromage> fromages;
+    private Panier panier;
 
     /**
      * Launch the application.
@@ -32,7 +37,7 @@ public class ValidationPanier extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    ValidationPanier frame = new ValidationPanier(getSampleOrderedFromages());
+                    ValidationPanier frame = new ValidationPanier(new Panier());
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -41,10 +46,9 @@ public class ValidationPanier extends JFrame {
         });
     }
 
-    public ValidationPanier(List<Fromage> orderedFromages) {
-        this.fromages = orderedFromages;
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    public ValidationPanier(Panier panier) {
+        this.panier = panier;
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 600, 710);
         contentPane = new JPanel();
         contentPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -123,11 +127,11 @@ public class ValidationPanier extends JFrame {
     private void displayOrderSummary() {
         StringBuilder summary = new StringBuilder();
         double total = 0;
-
-        for (Fromage fromage : fromages) {
-            summary.append(fromage.getName()).append(" - ").append(fromage.getPrice()).append("\n");
-            total += parsePrice(fromage.getPrice());
-        }
+        //affiche tout les fromages puis le total
+//        for (Fromage fromage : fromages) {
+//            summary.append(fromage.getName()).append(" - ").append(fromage.getPrice()).append("\n");
+//            total += parsePrice(fromage.getPrice());
+//        }
 
         summary.append("\nTotal: ").append(String.format("%.2f €", total));
         orderSummaryArea.setText(summary.toString());
@@ -151,38 +155,5 @@ public class ValidationPanier extends JFrame {
         invoice.append(orderSummaryArea.getText());
 
         JOptionPane.showMessageDialog(this, invoice.toString(), "Facture", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    // Sample data for testing
-    private static List<Fromage> getSampleOrderedFromages() {
-        List<Fromage> sampleFromages = new ArrayList<>();
-        sampleFromages.add(new Fromage("Roquefort", "7.20 €", "C:\\Users\\isamr\\Downloads\\png.png"));
-        sampleFromages.add(new Fromage("Camembert", "5.00 €", "C:\\Users\\isamr\\Downloads\\png.png"));
-        return sampleFromages;
-    }
-
-    // Duplicate the Fromage class here
-    public static class Fromage {
-        private String name;
-        private String price;
-        private String imagePath;
-
-        public Fromage(String name, String price, String imagePath) {
-            this.name = name;
-            this.price = price;
-            this.imagePath = imagePath;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-
-        public String getImagePath() {
-            return imagePath;
-        }
     }
 }

@@ -91,6 +91,18 @@ public class Fromage implements Comparable<Fromage> {
         }
     }
 
+    public Article getLowestPriceArticle() {
+        float prixmin = 1000000;
+        Article articlemin = null;
+        for (Article article : this.getArticles()) {
+            if (article.getPrixTTC() < prixmin) {
+                prixmin = article.getPrixTTC();
+                articlemin = article;
+            }
+        }
+        return articlemin;
+    }
+
     @Override
     public int compareTo(Fromage f) {
         return this.designation.compareTo(f.designation);

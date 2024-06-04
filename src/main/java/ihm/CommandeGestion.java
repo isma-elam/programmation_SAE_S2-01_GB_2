@@ -1,5 +1,7 @@
 package ihm;
 
+import modele.Panier;
+
 import javax.swing.*;
 
 import java.awt.*;
@@ -16,17 +18,16 @@ public class CommandeGestion extends JFrame {
     private JButton viderPanierButton;
     private JButton validerPanierButton;
     private JButton continuerAchatsButton;
+    private Panier panier;
 
-    public CommandeGestion() {
+    public CommandeGestion(Panier panier) {
+        this.panier = panier;
         setTitle("Gestion du Panier");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 800);
         setLocationRelativeTo(null); // Centrer la fenêtre
-        initComponents();
         setVisible(true);
-    }
 
-    private void initComponents() {
         contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         setContentPane(contentPane);
@@ -44,18 +45,41 @@ public class CommandeGestion extends JFrame {
         panierPanel.add(scrollPane, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
+
         viderPanierButton = new JButton("Vider le Panier");
         viderPanierButton.setFont(new Font("Arial", Font.PLAIN, 18));
         buttonPanel.add(viderPanierButton);
+        //when the button is clicked, the panierArea is cleared
+        viderPanierButton.addActionListener(e -> {
+            panier.vider();
+            panierArea.setText("");
+        });
+
         validerPanierButton = new JButton("Valider le Panier");
         validerPanierButton.setFont(new Font("Arial", Font.PLAIN, 18));
         buttonPanel.add(validerPanierButton);
+        //when the button is clicked, a new window is opened
+        validerPanierButton.addActionListener(e -> {
+            //open a new window with the order summary
+            ValidationPanier vp = new ValidationPanier(panier);
+            vp.setVisible(true);
+        });
+
         continuerAchatsButton = new JButton("Continuer les Achats");
         continuerAchatsButton.setFont(new Font("Arial", Font.PLAIN, 18));
         buttonPanel.add(continuerAchatsButton);
+        //when the button is clicked, the current window is closed
+        continuerAchatsButton.addActionListener(e -> {
+            dispose();
+        });
+
         recalculerButton = new JButton("Recalculer");
         recalculerButton.setFont(new Font("Arial", Font.PLAIN, 18));
         buttonPanel.add(recalculerButton);
+        //when the button is clicked, the total price is recalculated
+        recalculerButton.addActionListener(e -> {
+            updatePanierArea();
+        });
 
         panierPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -92,7 +116,7 @@ public class CommandeGestion extends JFrame {
         contentPane.add(detailsPanel, BorderLayout.SOUTH);
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(CommandeGestion::new);
+    public void updatePanierArea() {
+        panierArea.setText(panier.toString());
     }
 }

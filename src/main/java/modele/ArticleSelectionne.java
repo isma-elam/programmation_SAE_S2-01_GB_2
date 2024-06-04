@@ -22,7 +22,7 @@ public class ArticleSelectionne {
      * Retourne le fromage de l'article selectionné
      * @return Fromage de l'article selectionné
      */
-    public Object getFromage() {
+    public Fromage getFromage() {
         return this.article.getFromage();
     }
 

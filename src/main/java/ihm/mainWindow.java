@@ -3,6 +3,7 @@ package ihm;
 import modele.Fromage;
 import modele.Fromages;
 import modele.GenerationFromages;
+import modele.Panier;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -28,6 +29,7 @@ public class mainWindow extends JFrame {
     private JTextField searchField;
     private JPanel cheeseListPanel;
     private Fromages fromages;
+    Panier panier;
 
     /**
      * Launch the application.
@@ -64,7 +66,7 @@ public class mainWindow extends JFrame {
         // Logo panel
         JPanel logoPanel = new JPanel();
         topPanel.add(logoPanel, BorderLayout.WEST);
-        JLabel logoLabel = new JLabel(new ImageIcon("path/to/logo.png")); // Replace with actual image path
+        JLabel logoLabel = new JLabel(new ImageIcon("src\\main\\resources\\images\\logo\\logo.png")); // Replace with actual image path
         logoPanel.add(logoLabel);
 
         // Search panel
@@ -95,6 +97,11 @@ public class mainWindow extends JFrame {
         // Cart button
         JButton cartButton = new JButton("Panier");
         topPanel.add(cartButton, BorderLayout.EAST);
+        //when the user clicks the "Panier" button, show the cart
+        cartButton.addActionListener(e -> {
+            CommandeGestion commandeGestion = new CommandeGestion(panier);
+            commandeGestion.setVisible(true);
+        });
 
         // Panel for the list of cheeses
         cheeseListPanel = new JPanel();
@@ -115,6 +122,8 @@ public class mainWindow extends JFrame {
         fromages = GenerationFromages.generationBaseFromages();
 
         updateCheeseList(fromages.getFromages());
+
+        panier = new Panier();
     }
 
     private void filterCheeses() {
@@ -155,6 +164,10 @@ public class mainWindow extends JFrame {
         addButton.setPreferredSize(new Dimension(150, 50));
         addButton.setMaximumSize(getMaximumSize());
         panel.add(addButton, BorderLayout.EAST);
+        //when the user clicks the "Ajouter au panier" button, add the cheese to the cart
+        addButton.addActionListener(e -> {
+            panier.addArticle(fromage.getLowestPriceArticle(),1);
+        });
 
         return panel;
     }
