@@ -40,7 +40,7 @@ public class ValidationPanier extends JFrame {
             }
         });
     }
-    
+
     public ValidationPanier(List<Fromage> orderedFromages) {
         this.fromages = orderedFromages;
 
@@ -50,14 +50,14 @@ public class ValidationPanier extends JFrame {
         contentPane.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(new BorderLayout(0, 0));
-        
+
         // Customer Information Panel
         JPanel customerInfoPanel = new JPanel();
         customerInfoPanel.setLayout(new GridLayout(6, 2));
-        
+
         // Add title
         JLabel title = new JLabel("Coordonnées", SwingConstants.CENTER);
-        title.setFont(new Font("Serif", Font.BOLD, 24)); 
+        title.setFont(new Font("Serif", Font.BOLD, 24));
         customerInfoPanel.add(title);
         customerInfoPanel.add(new JLabel(""));
 
@@ -101,7 +101,7 @@ public class ValidationPanier extends JFrame {
 
         JButton cancelButton = new JButton("Annuler");
         bottomPanel.add(cancelButton);
-        
+
         // Action Listeners
         validateButton.addActionListener(new ActionListener() {
             @Override
@@ -186,4 +186,3 @@ public class ValidationPanier extends JFrame {
         }
     }
 }
-
