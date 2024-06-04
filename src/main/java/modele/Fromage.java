@@ -1,5 +1,7 @@
 package modele;
 
+import ihm.main;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,11 +27,11 @@ public class Fromage implements Comparable<Fromage> {
     }
 
     public String getNomImagePath40() {
-        return ("src/main/resources/images.fromages/hauteur40/" + this.nomImage);
+        return ("src\\main\\resources\\images\\fromages\\hauteur40\\" + this.nomImage + ".jpg");
     }
 
     public String getNomImagePath200() {
-        return ("src/main/resources/images.fromages/hauteur200/" + this.nomImage);
+        return ("src\\main\\resources\\images\\fromages\\hauteur200\\" + this.nomImage + ".jpg");
     }
 
     public String getDescription() {
