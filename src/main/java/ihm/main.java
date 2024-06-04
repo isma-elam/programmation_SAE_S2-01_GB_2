@@ -3,6 +3,8 @@ package ihm;
 import modele.Fromage;
 import modele.Fromages;
 import modele.GenerationFromages;
+import modele.Recherche;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -17,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class main extends JFrame {
 
@@ -71,6 +75,23 @@ public class main extends JFrame {
         searchField.setPreferredSize(new Dimension(200, 25));
         searchPanel.add(searchField);
         topPanel.add(searchPanel, BorderLayout.CENTER);
+        //when the user types in the search field, filter the list of cheeses
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterCheeses();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterCheeses();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterCheeses();
+            }
+        });
 
         // Cart button
         JButton cartButton = new JButton("Panier");
@@ -95,6 +116,12 @@ public class main extends JFrame {
         fromages = GenerationFromages.generationBaseFromages();
 
         updateCheeseList(fromages.getFromages());
+    }
+
+    private void filterCheeses() {
+        String query = searchField.getText().toLowerCase();
+        List<Fromage> filteredFromages = this.fromages.Recherche(query);
+        updateCheeseList(filteredFromages);
     }
 
     private void updateCheeseList(List<Fromage> filteredFromages) {
