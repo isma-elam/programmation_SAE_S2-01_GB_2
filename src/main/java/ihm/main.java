@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-public class InterfaceTest extends JFrame {
+public class main extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -31,7 +31,7 @@ public class InterfaceTest extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    InterfaceTest frame = new InterfaceTest();
+                    main frame = new main();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -43,7 +43,7 @@ public class InterfaceTest extends JFrame {
     /**
      * Create the frame.
      */
-    public InterfaceTest() {
+    public main() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 600, 710);
         contentPane = new JPanel();
