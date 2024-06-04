@@ -5,76 +5,101 @@ import java.util.List;
 
 public class Fromage implements Comparable<Fromage> {
 
-	private String designation;
-	private String nomImage;
-	private String description;
-	private TypeLait typeFromage;
-	private List<Article> articles;
+    private final String designation;
+    private String nomImage;
+    private String description;
+    private TypeLait typeFromage;
+    private List<Article> articles;
 
-	public Fromage(String designation) {
-		this.designation = designation;
-		this.articles = new LinkedList<Article>();
-	}
+    public Fromage(String designation) {
+        this.designation = designation;
+        this.articles = new LinkedList<Article>();
+    }
 
-	public String getDesignation() {
-		return this.designation;
-	}
+    public String getDesignation() {
+        return this.designation;
+    }
 
-	public String getNomImage() {
-		return this.nomImage;
-	}
+    public String getNomImage() {
+        return this.nomImage;
+    }
 
-	public String getDescription() {
-		assert !(this.description == null);
-		if (this.description == null) {
-			return "Pas de description de ce fromage pour le moment. Nous en sommes desoles";
-		}
-		return this.description;
-	}
+    public String getNomImagePath40() {
+        return ("src/main/resources/images.fromages/hauteur40/" + this.nomImage);
+    }
 
-	public void addDescription(String description) {
-		this.description = description;
-	}
+    public String getNomImagePath200() {
+        return ("src/main/resources/images.fromages/hauteur200/" + this.nomImage);
+    }
 
-	public void addNomImage(String nomImage) {
-		this.nomImage = nomImage;
-	}
+    public String getDescription() {
+        assert !(this.description == null);
+        if (this.description == null) {
+            return "Pas de description de ce fromage pour le moment. Nous en sommes desoles";
+        }
+        return this.description;
+    }
 
-	public void updateTypeFromage(TypeLait type) {
-		this.typeFromage = type;
-	}
+    public void addDescription(String description) {
+        this.description = description;
+    }
 
-	public TypeLait getTypeFromage() {
-		return this.typeFromage;
-	}
+    public void addNomImage(String nomImage) {
+        this.nomImage = nomImage;
+    }
 
-	@Override
-	public String toString() {
-		return this.getDesignation() + ", Fromage au lait de "
-		        + this.typeFromage.getTypeDeLait();
-	}
+    public void updateTypeFromage(TypeLait type) {
+        this.typeFromage = type;
+    }
 
-	public void addArticle(String cle, float prixTTC) {
-		this.articles.add(new Article(this, cle, prixTTC));
-	}
+    public TypeLait getTypeFromage() {
+        return this.typeFromage;
+    }
 
-	public int nombreArticles() {
-		return this.articles.size();
-	}
+    @Override
+    public String toString() {
+        return this.getDesignation() + ", Fromage au lait de "
+                + this.typeFromage.getTypeDeLait();
+    }
 
-	public List<Article> getArticles() {
-		return this.articles;
-	}
+    public void addArticle(String cle, float prixTTC) {
+        this.articles.add(new Article(this, cle, prixTTC));
+    }
 
-	@Override
-	public int compareTo(Fromage f) {
-		return this.designation.compareTo(f.designation);
-	}
+    public int nombreArticles() {
+        return this.articles.size();
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		Fromage other = (Fromage) obj;
-		return this.designation.equals(other.designation);
-	}
+    public List<Article> getArticles() {
+        return this.articles;
+    }
+
+    public String getPrixs() {
+        float prixmin = 1000000;
+        float prixmax = 0;
+        if (this.nombreArticles() > 1) {
+            for (Article article : this.getArticles()) {
+                if (article.getPrixTTC() < prixmin) {
+                    prixmin = article.getPrixTTC();
+                } else if (article.getPrixTTC() > prixmax) {
+                    prixmax = article.getPrixTTC();
+                }
+            }
+            return prixmin + " - " + prixmax;
+        } else {
+            return this.getArticles().get(0).getPrixTTC() + "";
+        }
+    }
+
+    @Override
+    public int compareTo(Fromage f) {
+        return this.designation.compareTo(f.designation);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Fromage other = (Fromage) obj;
+        return this.designation.equals(other.designation);
+    }
 
 }
