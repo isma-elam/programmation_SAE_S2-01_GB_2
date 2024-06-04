@@ -1,13 +1,13 @@
 package ihm;
 
 import modele.Fromage;
-
+import modele.Fromages;
+import modele.GenerationFromages;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,7 +24,7 @@ public class main extends JFrame {
     private JPanel contentPane;
     private JTextField searchField;
     private JPanel cheeseListPanel;
-    private List<Fromage> fromages;
+    private Fromages fromages;
 
     /**
      * Launch the application.
@@ -82,10 +82,6 @@ public class main extends JFrame {
         JScrollPane scrollPane = new JScrollPane(cheeseListPanel);
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
-
-        // Add cheese panels
-        updateCheeseList(fromages);
-
         // Bottom panel with Quit button
         JPanel bottomPanel = new JPanel();
         contentPane.add(bottomPanel, BorderLayout.SOUTH);
@@ -95,19 +91,10 @@ public class main extends JFrame {
         quitButton.setPreferredSize(new Dimension(90, 30));
         bottomPanel.add(quitButton, BorderLayout.EAST);
 
-        // Search action
-        /*
-        searchField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String searchText = searchField.getText().toLowerCase();
-                List<Fromage> filteredFromages = fromages.stream()
-                        .filter(f -> f.getName().toLowerCase().contains(searchText))
-                        .collect(Collectors.toList());
-                updateCheeseList(filteredFromages);
-            }
-        });
-        */
+        // Load cheeses
+        fromages = GenerationFromages.generationBaseFromages();
+
+        updateCheeseList(fromages.getFromages());
     }
 
     private void updateCheeseList(List<Fromage> filteredFromages) {
@@ -131,7 +118,9 @@ public class main extends JFrame {
         JPanel infoPanel = new JPanel(new GridLayout(2, 1));
         infoPanel.setPreferredSize(new Dimension(200, 50));
         JLabel lblName = new JLabel(fromage.getDesignation());
-        JLabel lblPrice = new JLabel(fromage.getDescription());
+
+        JLabel lblPrice = new JLabel(fromage.getPrixs());
+
         infoPanel.add(lblName);
         infoPanel.add(lblPrice);
         panel.add(infoPanel, BorderLayout.CENTER);

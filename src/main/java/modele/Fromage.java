@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Fromage implements Comparable<Fromage> {
 
-    private String designation;
+    private final String designation;
     private String nomImage;
     private String description;
     private TypeLait typeFromage;
@@ -72,6 +72,23 @@ public class Fromage implements Comparable<Fromage> {
 
     public List<Article> getArticles() {
         return this.articles;
+    }
+
+    public String getPrixs() {
+        float prixmin = 1000000;
+        float prixmax = 0;
+        if (this.nombreArticles() > 1) {
+            for (Article article : this.getArticles()) {
+                if (article.getPrixTTC() < prixmin) {
+                    prixmin = article.getPrixTTC();
+                } else if (article.getPrixTTC() > prixmax) {
+                    prixmax = article.getPrixTTC();
+                }
+            }
+            return prixmin + " - " + prixmax;
+        } else {
+            return this.getArticles().get(0).getPrixTTC() + "";
+        }
     }
 
     @Override
