@@ -7,6 +7,8 @@ public class Panier {
 
     private final List<ArticleSelectionne> articles;
 
+    private Transporteur transporteur;
+
     public Panier() {
         this.articles = new LinkedList<>();
     }
@@ -139,5 +141,24 @@ public class Panier {
             }
         }
         return null;
+    }
+
+    public void setTransporteur(Transporteur transporteur) {
+        this.transporteur = transporteur;
+    }
+
+    public Transporteur getTransporteur() {
+        return this.transporteur;
+    }
+
+    public double fraisPort() {
+        if (this.transporteur == null) {
+            throw new IllegalStateException("Transporteur non défini");
+        }
+        return this.transporteur.getFraisPort(this.prixTotal());
+    }
+
+    public double total() {
+        return this.prixTotal() + this.fraisPort();
     }
 }

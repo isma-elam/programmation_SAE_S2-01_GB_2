@@ -1,6 +1,8 @@
 package ihm;
 
 import modele.Panier;
+import modele.Transporteur;
+import modele.Transporteurs;
 
 import javax.swing.*;
 
@@ -78,7 +80,7 @@ public class CommandeGestion extends JFrame {
         buttonPanel.add(recalculerButton);
         //when the button is clicked, the total price is recalculated
         recalculerButton.addActionListener(e -> {
-            updatePanierArea();
+            UpdateAll();
         });
 
         panierPanel.add(buttonPanel, BorderLayout.SOUTH);
@@ -93,6 +95,7 @@ public class CommandeGestion extends JFrame {
         sousTotalLabel = new JLabel("Sous-Total et Expédition : ");
         sousTotalLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         leftDetailsPanel.add(sousTotalLabel);
+
         totalLabel = new JLabel("TOTAL: ");
         totalLabel.setFont(new Font("Arial", Font.BOLD, 20));
         totalLabel.setForeground(Color.GREEN);
@@ -103,7 +106,12 @@ public class CommandeGestion extends JFrame {
         JPanel rightDetailsPanel = new JPanel(new GridLayout(3, 1));
         rightDetailsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        transporteurBox = new JComboBox<>(new String[]{"Transporteur A", "Transporteur B", "Transporteur C"});
+        Transporteurs transporteurs = new Transporteurs();
+
+        transporteurBox = new JComboBox<>(new String[]{transporteurs.getTransporteur(0).toString(),
+                transporteurs.getTransporteur(1).toString(),
+                transporteurs.getTransporteur(2).toString()
+        });
         transporteurBox.setFont(new Font("Arial", Font.PLAIN, 18));
         rightDetailsPanel.add(new JLabel("Transporteur: "));
         rightDetailsPanel.add(transporteurBox);
@@ -111,12 +119,35 @@ public class CommandeGestion extends JFrame {
         fraisPortLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         rightDetailsPanel.add(fraisPortLabel);
 
+        //when the user selects a transporteur, the fraisPortLabel is updated
+        transporteurBox.addActionListener(e -> {
+            UpdateAll();
+        });
+
         detailsPanel.add(rightDetailsPanel, BorderLayout.EAST);
 
         contentPane.add(detailsPanel, BorderLayout.SOUTH);
+        panier.setTransporteur(transporteurs.getTransporteur(0));
+        UpdateAll();
+    }
+
+    public void UpdateAll() {
+        updatePanierArea();
+        updateFraisDePort(new Transporteurs().getTransporteur(transporteurBox.getSelectedIndex()));
     }
 
     public void updatePanierArea() {
         panierArea.setText(panier.toString());
+        sousTotalLabel.setText("Sous-Total : " + panier.prixTotal() + " €");
+        totalLabel.setText("TOTAL: " + panier.total() + " €");
+    }
+
+    public void updateFraisDePort( Transporteur transporteur) {
+        panier.setTransporteur(transporteur);
+        if (panier.prixTotal() > 120) {
+            fraisPortLabel.setText("Frais de port offert");
+        } else {
+            fraisPortLabel.setText("Frais de port: " + transporteur.getFraisPort(panier.prixTotal()) + " €");
+        }
     }
 }

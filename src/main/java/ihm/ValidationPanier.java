@@ -19,8 +19,6 @@ import java.awt.Font;
 
 
 public class ValidationPanier extends JFrame {
-
-    private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField nameField;
     private JTextField addressField;
@@ -33,18 +31,18 @@ public class ValidationPanier extends JFrame {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    ValidationPanier frame = new ValidationPanier(new Panier());
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    ValidationPanier frame = new ValidationPanier(new Panier());
+//                    frame.setVisible(true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
 
     public ValidationPanier(Panier panier) {
         this.panier = panier;
