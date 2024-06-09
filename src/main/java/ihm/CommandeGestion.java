@@ -10,17 +10,12 @@ import java.awt.*;
 
 public class CommandeGestion extends JFrame {
 
-    private JPanel contentPane;
-    private JTextArea panierArea;
-    private JButton recalculerButton;
-    private JComboBox<String> transporteurBox;
-    private JLabel fraisPortLabel;
-    private JLabel sousTotalLabel;
-    private JLabel totalLabel;
-    private JButton viderPanierButton;
-    private JButton validerPanierButton;
-    private JButton continuerAchatsButton;
-    private Panier panier;
+    private final JTextArea panierArea;
+    private final JComboBox<String> transporteurBox;
+    private final JLabel fraisPortLabel;
+    private final JLabel sousTotalLabel;
+    private final JLabel totalLabel;
+    private final Panier panier;
 
     public CommandeGestion(Panier panier) {
         this.panier = panier;
@@ -30,7 +25,7 @@ public class CommandeGestion extends JFrame {
         setLocationRelativeTo(null); // Centrer la fenêtre
         setVisible(true);
 
-        contentPane = new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setLayout(new BorderLayout());
         setContentPane(contentPane);
 
@@ -48,7 +43,7 @@ public class CommandeGestion extends JFrame {
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
 
-        viderPanierButton = new JButton("Vider le Panier");
+        JButton viderPanierButton = new JButton("Vider le Panier");
         viderPanierButton.setFont(new Font("Arial", Font.PLAIN, 18));
         buttonPanel.add(viderPanierButton);
         //when the button is clicked, the panierArea is cleared
@@ -57,7 +52,7 @@ public class CommandeGestion extends JFrame {
             panierArea.setText("");
         });
 
-        validerPanierButton = new JButton("Valider le Panier");
+        JButton validerPanierButton = new JButton("Valider le Panier");
         validerPanierButton.setFont(new Font("Arial", Font.PLAIN, 18));
         buttonPanel.add(validerPanierButton);
         //when the button is clicked, a new window is opened
@@ -67,21 +62,17 @@ public class CommandeGestion extends JFrame {
             vp.setVisible(true);
         });
 
-        continuerAchatsButton = new JButton("Continuer les Achats");
+        JButton continuerAchatsButton = new JButton("Continuer les Achats");
         continuerAchatsButton.setFont(new Font("Arial", Font.PLAIN, 18));
         buttonPanel.add(continuerAchatsButton);
         //when the button is clicked, the current window is closed
-        continuerAchatsButton.addActionListener(e -> {
-            dispose();
-        });
+        continuerAchatsButton.addActionListener(e -> dispose());
 
-        recalculerButton = new JButton("Recalculer");
+        JButton recalculerButton = new JButton("Recalculer");
         recalculerButton.setFont(new Font("Arial", Font.PLAIN, 18));
         buttonPanel.add(recalculerButton);
         //when the button is clicked, the total price is recalculated
-        recalculerButton.addActionListener(e -> {
-            UpdateAll();
-        });
+        recalculerButton.addActionListener(e -> UpdateAll());
 
         panierPanel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -121,6 +112,7 @@ public class CommandeGestion extends JFrame {
 
         //when the user selects a transporteur, the fraisPortLabel is updated
         transporteurBox.addActionListener(e -> {
+            panier.setTransporteur(transporteurs.getTransporteur(transporteurBox.getSelectedIndex()));
             UpdateAll();
         });
 
@@ -133,7 +125,7 @@ public class CommandeGestion extends JFrame {
 
     public void UpdateAll() {
         updatePanierArea();
-        updateFraisDePort(new Transporteurs().getTransporteur(transporteurBox.getSelectedIndex()));
+        updateFraisDePort(panier.getTransporteur());
     }
 
     public void updatePanierArea() {
@@ -142,7 +134,7 @@ public class CommandeGestion extends JFrame {
         totalLabel.setText("TOTAL: " + panier.total() + " €");
     }
 
-    public void updateFraisDePort( Transporteur transporteur) {
+    public void updateFraisDePort(Transporteur transporteur) {
         panier.setTransporteur(transporteur);
         if (panier.prixTotal() > 120) {
             fraisPortLabel.setText("Frais de port offert");
