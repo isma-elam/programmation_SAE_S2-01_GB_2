@@ -60,10 +60,6 @@ public class DetailsFromage extends JFrame {
         nomLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         detailsPanel.add(nomLabel);
 
-        JLabel origineTitleLabel = new JLabel("Origine:");
-        origineTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        detailsPanel.add(origineTitleLabel);
-
         JLabel typeTitleLabel = new JLabel("Type:");
         typeTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         detailsPanel.add(typeTitleLabel);
@@ -76,6 +72,7 @@ public class DetailsFromage extends JFrame {
         prixTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         detailsPanel.add(prixTitleLabel);
 
+        //TODO: dont take the lowest price, take the price of the selected formule
         prixLabel = new JLabel(String.format("%.2f €", fromage.getLowestPriceArticle().getPrixTTC()));
         prixLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         detailsPanel.add(prixLabel);
@@ -106,6 +103,10 @@ public class DetailsFromage extends JFrame {
         }
         FormuleBox.setFont(new Font("Arial", Font.PLAIN, 14));
         detailsPanel.add(FormuleBox);
+        //when the user selects a formule, update the price
+        FormuleBox.addActionListener(e -> {
+            updatePrice(this.fromage.getArticleByCle(FormuleBox.getSelectedItem().toString()));
+        });
 
         JPanel descriptionPanel = new JPanel(new BorderLayout());
         descriptionPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
@@ -141,5 +142,9 @@ public class DetailsFromage extends JFrame {
         });
 
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
+    }
+
+    public void updatePrice(Article articleByCle) {
+        prixLabel.setText(String.format("%.2f €", articleByCle.getPrixTTC()));
     }
 }
