@@ -72,7 +72,6 @@ public class DetailsFromage extends JFrame {
         prixTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         detailsPanel.add(prixTitleLabel);
 
-        //TODO: dont take the lowest price, take the price of the selected formule
         prixLabel = new JLabel(String.format("%.2f €", fromage.getLowestPriceArticle().getPrixTTC()));
         prixLabel.setFont(new Font("Arial", Font.PLAIN, 14));
         detailsPanel.add(prixLabel);
