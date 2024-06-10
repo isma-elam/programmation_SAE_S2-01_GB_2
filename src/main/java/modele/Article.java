@@ -36,7 +36,7 @@ public class Article {
 
 	@Override
 	public String toString() {
-		if (this.cle.equals("")) {
+		if (this.cle.isEmpty()) {
 			return this.fromage.getDesignation() + ", Prix TTC : "
 			        + this.getPrixTTC() + " €";
 		} else {
@@ -52,6 +52,12 @@ public class Article {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Article)) {
+			return false;
+		}
 		Article other = (Article) obj;
 		return (this.fromage.equals(other.fromage)
 		        && this.cle.equals(other.cle));
