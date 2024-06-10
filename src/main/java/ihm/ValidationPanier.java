@@ -111,7 +111,7 @@ public class ValidationPanier extends JFrame {
         StringBuilder summary = new StringBuilder();
         //affiche tout les fromages puis le total
         for (ArticleSelectionne article : panier.getArticles()) {
-            summary.append(article.getFromage().getDesignation()).append(" - ")
+            summary.append(article.getFromage().getDesignation()).append(" (").append(article.getArticle().getCle()).append(")").append(" - ")
                     .append("Quantité: ").append(article.getQuantite()).append(" - ")
                     .append("Prix unitaire: ").append(String.format("%.2f €", article.getArticle().getPrixTTC())).append(" - ")
                     .append("\n");
