@@ -107,13 +107,34 @@ public class Fromages {
 		return null;
 	}
 
-	public List<Fromage> Recherche(String recherche) {
+	public static List<Fromage> Recherche(String recherche, List<Fromage> fromages) {
 		List<Fromage> fromagesRecherches = new LinkedList<Fromage>();
-		for (Fromage f : this.fromages) {
+		for (Fromage f : fromages) {
 			if (f.getDesignation().toLowerCase().contains(recherche)) {
 				fromagesRecherches.add(f);
 			}
 		}
 		return fromagesRecherches;
+	}
+
+	public List<Fromage> filter(FiltresEnum filtre, Object valeur) {
+		List<Fromage> fromagesFiltres = new LinkedList<Fromage>();
+		for (Fromage f : this.fromages) {
+			switch (filtre) {
+			case TYPE_LAIT:
+				if (f.getTypeFromage().equals(valeur)) {
+					fromagesFiltres.add(f);
+				}
+				break;
+			case TYPE_VENTE:
+				break;
+			case PRIX:
+				if (f.getLowestPriceArticle().getPrixTTC() <= (double) valeur) {
+					fromagesFiltres.add(f);
+				}
+				break;
+			}
+		}
+		return fromagesFiltres;
 	}
 }

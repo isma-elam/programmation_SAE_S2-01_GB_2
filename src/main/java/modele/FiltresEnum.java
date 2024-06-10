@@ -1,6 +1,6 @@
 package modele;
 
-public enum Filtres {
+public enum FiltresEnum {
     TYPE_LAIT,
     TYPE_VENTE,
     PRIX,

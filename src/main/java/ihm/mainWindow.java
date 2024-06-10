@@ -1,9 +1,6 @@
 package ihm;
 
-import modele.Fromage;
-import modele.Fromages;
-import modele.GenerationFromages;
-import modele.Panier;
+import modele.*;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -11,13 +8,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.List;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -29,6 +20,7 @@ public class mainWindow extends JFrame {
     private JTextField searchField;
     private JPanel cheeseListPanel;
     private Fromages fromages;
+    private JComboBox<String> milkTypeComboBox;
     Panier panier;
 
     /**
@@ -94,6 +86,19 @@ public class mainWindow extends JFrame {
             }
         });
 
+        // ComboBox for milk type
+        String[] milkTypes = {"Tous les fromages", "Vache", "Chèvre", "Brebis"};
+        milkTypeComboBox = new JComboBox<>(milkTypes);
+        milkTypeComboBox.setPreferredSize(new Dimension(150, 25));
+        searchPanel.add(milkTypeComboBox);
+
+        topPanel.add(searchPanel, BorderLayout.CENTER);
+
+        //When the user selects a milk type, filter the list of cheeses
+        milkTypeComboBox.addActionListener(e -> {
+            filterCheeses();
+        });
+
         // Cart button
         JButton cartButton = new JButton("Panier");
         topPanel.add(cartButton, BorderLayout.EAST);
@@ -127,8 +132,35 @@ public class mainWindow extends JFrame {
     }
 
     private void filterCheeses() {
-        String query = searchField.getText().toLowerCase();
-        List<Fromage> filteredFromages = this.fromages.Recherche(query);
+        TypeLait typeLait = null;
+        List<Fromage> filteredFromages = fromages.getFromages();
+        switch (milkTypeComboBox.getSelectedItem().toString()) {
+            case "Vache":
+                typeLait = TypeLait.VACHE;
+                break;
+            case "Chèvre":
+                typeLait = TypeLait.CHEVRE;
+                break;
+            case "Brebis":
+                typeLait = TypeLait.BREBIS;
+                break;
+            case "Tous les fromages":
+                break;
+        }
+
+        if (typeLait != null) {
+            filteredFromages = this.fromages.filter(
+                    FiltresEnum.TYPE_LAIT,
+                    typeLait
+
+            );
+        }
+
+        filteredFromages = Fromages.Recherche(
+                searchField.getText().toLowerCase(),
+                filteredFromages
+        );
+
         updateCheeseList(filteredFromages);
     }
 
