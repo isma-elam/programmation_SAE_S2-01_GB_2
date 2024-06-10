@@ -2,11 +2,8 @@ package ihm;
 
 import modele.*;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -192,14 +189,37 @@ public class mainWindow extends JFrame {
         infoPanel.add(lblPrice);
         panel.add(infoPanel, BorderLayout.CENTER);
 
+        //when the user clicks the "Ajouter au panier" button, add the cheese to the cart
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        buttonPanel.setBackground(new Color(255, 229, 204)); // Very light orange background
+
         JButton addButton = new JButton("Ajouter au panier");
         addButton.setPreferredSize(new Dimension(150, 50));
-        addButton.setMaximumSize(getMaximumSize());
-        panel.add(addButton, BorderLayout.EAST);
-        //when the user clicks the "Ajouter au panier" button, add the cheese to the cart
+        addButton.setBackground(new Color(255, 153, 51)); // Orange background
+        addButton.setForeground(Color.WHITE); // White text
+
+        buttonPanel.add(addButton);
+
         addButton.addActionListener(e -> {
             panier.addArticle(fromage.getLowestPriceArticle(),1);
         });
+
+        JButton moreInfoButton = new JButton("...");
+        moreInfoButton.setPreferredSize(new Dimension(30, 50));
+        moreInfoButton.setBackground(new Color(255, 153, 51)); // Orange background
+        moreInfoButton.setForeground(Color.WHITE); // White text
+        buttonPanel.add(moreInfoButton);
+
+        moreInfoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                DetailsFromage detailsFromage = new DetailsFromage(fromage);
+                detailsFromage.setVisible(true);
+            }
+        });
+
+        panel.add(buttonPanel, BorderLayout.EAST);
 
         return panel;
     }
