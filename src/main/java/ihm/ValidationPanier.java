@@ -1,12 +1,10 @@
 package ihm;
 
-import modele.Article;
 import modele.ArticleSelectionne;
 import modele.Fromage;
 import modele.Panier;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -19,6 +17,8 @@ import java.awt.Font;
 
 
 public class ValidationPanier extends JFrame {
+
+    private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTextField nameField;
     private JTextField addressField;
@@ -28,24 +28,9 @@ public class ValidationPanier extends JFrame {
     private JTextArea orderSummaryArea;
     private Panier panier;
 
-    /**
-     * Launch the application.
-     */
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    ValidationPanier frame = new ValidationPanier(new Panier());
-//                    frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-
     public ValidationPanier(Panier panier) {
         this.panier = panier;
+
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(100, 100, 600, 710);
         contentPane = new JPanel();
@@ -124,14 +109,16 @@ public class ValidationPanier extends JFrame {
 
     private void displayOrderSummary() {
         StringBuilder summary = new StringBuilder();
-        double total = 0;
         //affiche tout les fromages puis le total
-//        for (Fromage fromage : fromages) {
-//            summary.append(fromage.getName()).append(" - ").append(fromage.getPrice()).append("\n");
-//            total += parsePrice(fromage.getPrice());
-//        }
-
-        summary.append("\nTotal: ").append(String.format("%.2f €", total));
+        for (ArticleSelectionne article : panier.getArticles()) {
+            summary.append(article.getFromage().getDesignation()).append(" - ")
+                    .append("Quantité: ").append(article.getQuantite()).append(" - ")
+                    .append("Prix unitaire: ").append(String.format("%.2f €", article.getArticle().getPrixTTC())).append(" - ")
+                    .append("\n");
+        }
+        summary.append("Total fromage: ").append(String.format("%.2f €", panier.prixTotal())).append("\n");
+        summary.append("Livraison:").append(String.format("%.2f €", panier.fraisPort())).append("\n");
+        summary.append("Total: ").append(String.format("%.2f €", panier.total()));
         orderSummaryArea.setText(summary.toString());
     }
 
@@ -155,3 +142,4 @@ public class ValidationPanier extends JFrame {
         JOptionPane.showMessageDialog(this, invoice.toString(), "Facture", JOptionPane.INFORMATION_MESSAGE);
     }
 }
+
