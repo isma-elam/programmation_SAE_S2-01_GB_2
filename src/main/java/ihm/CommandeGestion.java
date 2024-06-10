@@ -264,7 +264,7 @@ public class CommandeGestion extends JFrame {
             ArticleSelectionne articleSelectionne = panier.getArticle(i);
             Article article = articleSelectionne.getArticle();
             model.addRow(new Object[]{
-                    article.getFromage().getDesignation(),
+                    article.getFromage().getDesignation() + " (" + article.getCle() + ")",
                     articleSelectionne.getQuantite(),
                     article.getPrixTTC(),
                     article.getPrixTTC() * articleSelectionne.getQuantite()

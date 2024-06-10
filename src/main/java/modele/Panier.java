@@ -25,7 +25,7 @@ public class Panier {
             throw new IllegalArgumentException("Quantité invalide");
         }
         // qte positive
-        if (this.contient(article.getFromage())) {
+        if (this.contient(article)) {
             // si l'article est déjà présent
             this.getArticle(article.getFromage()).ajouter(qte);
             // on ajoute la quantité (vérification de quantité en stock dans la méthode ajouter)
@@ -123,6 +123,15 @@ public class Panier {
     public boolean contient(Fromage fromage) {
         for (ArticleSelectionne article : this.articles) {
             if (article.getFromage().equals(fromage)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contient(Article article) {
+        for (ArticleSelectionne articleSelectionne : this.articles) {
+            if (articleSelectionne.getArticle().equals(article)) {
                 return true;
             }
         }
