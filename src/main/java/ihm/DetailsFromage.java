@@ -97,6 +97,10 @@ public class DetailsFromage extends JFrame {
 
 
         FormuleBox = new JComboBox<>();
+        if(fromage.getArticles().size() == 1){
+            FormuleBox.addItem("Normal");
+            FormuleBox.setEnabled(false);
+        }
         for (Article formule : fromage.getArticles()) {
             FormuleBox.addItem(formule.getCle());
         }
@@ -128,8 +132,12 @@ public class DetailsFromage extends JFrame {
         buttonPanel.add(ajouterPanierButton);
         // Add the cheese to the cart when the user clicks the "Ajouter au Panier" button
         ajouterPanierButton.addActionListener(e -> {
-            Article article = fromage.getArticleByCle(FormuleBox.getSelectedItem().toString());
-            panier.addArticle(article, (int) quantiteBox.getSelectedItem());
+            if (FormuleBox.isEnabled()) {
+                Article article = fromage.getArticleByCle(FormuleBox.getSelectedItem().toString());
+                panier.addArticle(article, (int) quantiteBox.getSelectedItem());
+            } else {
+                panier.addArticle(fromage.getLowestPriceArticle(), (int) quantiteBox.getSelectedItem());
+            }
         });
 
         contentPane.add(buttonPanel, BorderLayout.SOUTH);

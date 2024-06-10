@@ -263,8 +263,14 @@ public class CommandeGestion extends JFrame {
         for (int i = 0; i < panier.getArticles().size(); i++) {
             ArticleSelectionne articleSelectionne = panier.getArticle(i);
             Article article = articleSelectionne.getArticle();
+            StringBuilder sb = new StringBuilder();
+            if (!article.getCle().isEmpty()) {
+                sb.append(article.getFromage().getDesignation()).append(" (").append(article.getCle()).append(")");
+            } else {
+                sb.append(article.getFromage().getDesignation());
+            }
             model.addRow(new Object[]{
-                    article.getFromage().getDesignation() + " (" + article.getCle() + ")",
+                    sb.toString(),
                     articleSelectionne.getQuantite(),
                     article.getPrixTTC(),
                     article.getPrixTTC() * articleSelectionne.getQuantite()
