@@ -276,8 +276,6 @@ public class CommandeGestion extends JFrame {
                     article.getPrixTTC() * articleSelectionne.getQuantite()
             });
         }
-
-        //panierArea.setText(panier.toString());
         sousTotalLabel.setText("Sous-Total : " + panier.prixTotal() + " €");
         totalLabel.setText("TOTAL: " + panier.total() + " €");
     }
