@@ -43,7 +43,7 @@ public class DetailsFromage extends JFrame {
         // Panel for Image
         JPanel imagePanel = new JPanel();
         JLabel imageLabel = new JLabel();
-        imageLabel.setIcon(new ImageIcon("C:\\Users\\isamr\\Desktop\\S201\\png (1).png")); // Provide the path to your image here
+        imageLabel.setIcon(new ImageIcon(fromage.getNomImagePath200()));
         imagePanel.add(imageLabel);
         mainPanel.add(imagePanel, BorderLayout.WEST);
 
