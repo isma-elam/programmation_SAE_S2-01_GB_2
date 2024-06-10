@@ -214,7 +214,7 @@ public class mainWindow extends JFrame {
         moreInfoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                DetailsFromage detailsFromage = new DetailsFromage(fromage);
+                DetailsFromage detailsFromage = new DetailsFromage(fromage, panier);
                 detailsFromage.setVisible(true);
             }
         });

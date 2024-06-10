@@ -114,4 +114,12 @@ public class Fromage implements Comparable<Fromage> {
         return this.designation.equals(other.designation);
     }
 
+    public Article getArticleByCle(String cle) {
+        for (Article article : this.articles) {
+            if (article.getCle().equals(cle)) {
+                return article;
+            }
+        }
+        return null;
+    }
 }

@@ -1,6 +1,8 @@
 package ihm;
 
+import modele.Article;
 import modele.Fromage;
+import modele.Panier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +11,6 @@ public class DetailsFromage extends JFrame {
 
     private JPanel contentPane;
     private JLabel nomLabel;
-    private JLabel origineLabel;
     private JLabel typeLabel;
 
     private JLabel prixLabel;
@@ -17,9 +18,12 @@ public class DetailsFromage extends JFrame {
     private JComboBox<Integer> quantiteBox;
     private JButton ajouterPanierButton;
     private Fromage fromage;
+    private JComboBox<String> FormuleBox;
+    private Panier panier;
 
-    public DetailsFromage(Fromage fromage) {
+    public DetailsFromage(Fromage fromage, Panier panier) {
         this.fromage = fromage;
+        this.panier = panier;
         setTitle("Détails du Fromage");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(800, 600);
@@ -60,10 +64,6 @@ public class DetailsFromage extends JFrame {
         origineTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         detailsPanel.add(origineTitleLabel);
 
-        origineLabel = new JLabel(fromage.getDescription());
-        origineLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        detailsPanel.add(origineLabel);
-
         JLabel typeTitleLabel = new JLabel("Type:");
         typeTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         detailsPanel.add(typeTitleLabel);
@@ -91,6 +91,18 @@ public class DetailsFromage extends JFrame {
 
         mainPanel.add(detailsPanel, BorderLayout.CENTER);
 
+        JLabel FormuleTitleLabel = new JLabel("Formule:");
+        FormuleTitleLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        detailsPanel.add(FormuleTitleLabel);
+
+
+        FormuleBox = new JComboBox<>();
+        for (Article formule : fromage.getArticles()) {
+            FormuleBox.addItem(formule.getCle());
+        }
+        FormuleBox.setFont(new Font("Arial", Font.PLAIN, 14));
+        detailsPanel.add(FormuleBox);
+
         JPanel descriptionPanel = new JPanel(new BorderLayout());
         descriptionPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
@@ -114,6 +126,11 @@ public class DetailsFromage extends JFrame {
         ajouterPanierButton = new JButton("Ajouter au Panier");
         ajouterPanierButton.setFont(new Font("Arial", Font.PLAIN, 14));
         buttonPanel.add(ajouterPanierButton);
+        // Add the cheese to the cart when the user clicks the "Ajouter au Panier" button
+        ajouterPanierButton.addActionListener(e -> {
+            Article article = fromage.getArticleByCle(FormuleBox.getSelectedItem().toString());
+            panier.addArticle(article, (int) quantiteBox.getSelectedItem());
+        });
 
         contentPane.add(buttonPanel, BorderLayout.SOUTH);
     }
