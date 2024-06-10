@@ -18,7 +18,7 @@ public class CommandeGestion extends JFrame {
     private JButton viderPanierButton;
     private JButton validerPanierButton;
     private JButton continuerAchatsButton;
-    private Panier panier;
+    private final Panier panier;
 
     public CommandeGestion(Panier panier) {
         this.panier = panier;
@@ -276,8 +276,11 @@ public class CommandeGestion extends JFrame {
                     article.getPrixTTC() * articleSelectionne.getQuantite()
             });
         }
-        sousTotalLabel.setText("Sous-Total : " + panier.prixTotal() + " €");
-        totalLabel.setText("TOTAL: " + panier.total() + " €");
+        //round the total price to 2 decimal places
+        double prixTotal = Math.round(panier.prixTotal()*100.0)/100.0;
+        double total = Math.round(panier.total()*100.0)/100.0;
+        sousTotalLabel.setText("Sous-Total : " + prixTotal + " €");
+        totalLabel.setText("TOTAL: " + total + " €");
     }
 
     public void updateFraisDePort(Transporteur transporteur) {

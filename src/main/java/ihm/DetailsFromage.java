@@ -19,7 +19,7 @@ public class DetailsFromage extends JFrame {
     private JButton ajouterPanierButton;
     private Fromage fromage;
     private JComboBox<String> FormuleBox;
-    private Panier panier;
+    private final Panier panier;
 
     public DetailsFromage(Fromage fromage, Panier panier) {
         this.fromage = fromage;
