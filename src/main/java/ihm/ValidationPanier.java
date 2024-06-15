@@ -93,7 +93,7 @@ public class ValidationPanier extends JFrame {
         validateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                generateInvoice();
+                Facture facture = new Facture(nameField.getText(), addressField.getText(), phoneField.getText(), emailField.getText(), paymentComboBox.getSelectedItem().toString(), panier);
             }
         });
 
@@ -124,22 +124,6 @@ public class ValidationPanier extends JFrame {
 
     private double parsePrice(String price) {
         return Double.parseDouble(price.replace("€", "").trim());
-    }
-
-    private void generateInvoice() {
-        StringBuilder invoice = new StringBuilder();
-        invoice.append("FACTURE\n\n");
-
-        invoice.append("Nom: ").append(nameField.getText()).append("\n");
-        invoice.append("Adresse: ").append(addressField.getText()).append("\n");
-        invoice.append("Téléphone: ").append(phoneField.getText()).append("\n");
-        invoice.append("Email: ").append(emailField.getText()).append("\n");
-        invoice.append("Mode de paiement: ").append(paymentComboBox.getSelectedItem().toString()).append("\n\n");
-
-        invoice.append("Détails de la commande:\n");
-        invoice.append(orderSummaryArea.getText());
-
-        JOptionPane.showMessageDialog(this, invoice.toString(), "Facture", JOptionPane.INFORMATION_MESSAGE);
     }
 }
 
