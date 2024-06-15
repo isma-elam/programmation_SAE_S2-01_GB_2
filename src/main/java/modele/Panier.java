@@ -48,6 +48,9 @@ public class Panier {
      * @param article Article à supprimer
      */
     public void removeArticle(Article article) {
+        if (!this.contient(article)) {
+            throw new IllegalArgumentException("Article non présent dans le panier");
+        }
         this.articles.remove(this.getArticle(article.getFromage()));
     }
 
@@ -56,7 +59,7 @@ public class Panier {
      * @param articleSelectionne Article à supprimer
      */
     public void removeArticle(ArticleSelectionne articleSelectionne) {
-        this.articles.remove(articleSelectionne);
+        removeArticle(articleSelectionne.getArticle());
     }
 
     /**
