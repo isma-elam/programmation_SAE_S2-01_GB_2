@@ -32,19 +32,12 @@ public class Facture {
         this.mail = mail;
         this.lignes = new ArrayList<>();
         this.panier = panier;
-
-        double totalSLTmp = 0;
-        for (ArticleSelectionne a : panier.getArticles()) {
-            this.lignes.add(new LigneFacture(a));
-            totalSLTmp += a.total();
-        }
-
-        this.totalSansLivraison = String.valueOf(totalSLTmp);
         this.fraisTransport = fraisTransport;
-        this.totalAvecLivraison = String.valueOf(totalSLTmp + fraisTransport);
-
         this.typePaiment = typePaiment;
         this.livreur = livreur;
+        this.totalSansLivraison = panier.prixTotal()+"";
+        this.totalAvecLivraison = panier.total()+"";
+
     }
 
     public String getNom() {
