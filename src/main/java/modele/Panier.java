@@ -75,8 +75,8 @@ public class Panier {
     }
 
     /**
-     * Retourne le prix total du panier
-     * @return Prix total du panier
+     * Retourne le prix total du panier sans les frais de port
+     * @return Prix total du panier sans les frais de port
      */
     public double prixTotal() {
         double prixTotal = 0;
@@ -132,6 +132,12 @@ public class Panier {
         return false;
     }
 
+
+    /**
+     * Retourne vrai si le panier contient l'article donné
+     * @param article Article à chercher
+     * @return Vrai si le panier contient l'article donné
+     */
     public boolean contient(Article article) {
         for (ArticleSelectionne articleSelectionne : this.articles) {
             if (articleSelectionne.getArticle().equals(article)) {
@@ -155,14 +161,26 @@ public class Panier {
         return null;
     }
 
+    /**
+     * Définit le transporteur du panier
+     * @param transporteur
+     */
     public void setTransporteur(Transporteur transporteur) {
         this.transporteur = transporteur;
     }
 
+    /**
+     * Retourne le transporteur du panier
+     * @return Transporteur du panier
+     */
     public Transporteur getTransporteur() {
         return this.transporteur;
     }
 
+    /**
+     * Retourne les frais de port du panier
+     * @return Frais de port du panier
+     */
     public double fraisPort() {
         if (this.transporteur == null) {
             throw new IllegalStateException("Transporteur non défini");
@@ -170,6 +188,10 @@ public class Panier {
         return this.transporteur.getFraisPort(this.prixTotal());
     }
 
+    /**
+     * Retourne le prix total du panier avec les frais de port
+     * @return Prix total du panier avec les frais de port
+     */
     public double total() {
         return this.prixTotal() + this.fraisPort();
     }
