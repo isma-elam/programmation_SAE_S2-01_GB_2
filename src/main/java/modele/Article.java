@@ -31,6 +31,9 @@ public class Article {
 	}
 
 	public void setQuantiteEnStock(int quantiteEnStock) {
+		if (quantiteEnStock < 0) {
+			throw new IllegalArgumentException("Quantite en stock negative");
+		}
 		this.quantiteEnStock = quantiteEnStock;
 	}
 
